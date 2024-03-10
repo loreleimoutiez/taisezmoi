@@ -71,21 +71,15 @@ const router = createRouter({
     routes
 })
 
+const authRequiredRoutes = ['Tableau de bord', 'Écrire un article', 'Projet météo']
+
 router.beforeEach((to, from, next) => {
   const isAuthenticated = getToken();
-
-  if (to.name === 'Tableau de bord' && !isAuthenticated) {
+  
+  if (authRequiredRoutes.includes(to.name) && !isAuthenticated) {
     next({ name: 'Se connecter' })
   } else {
-    next();
-    return
-  }
-
-  if (to.name === 'Écrire un article' && !isAuthenticated) {
-    next({ name: 'Se connecter' })
-  } else {
-    next();
-    return
+    next()
   }
 })
 
