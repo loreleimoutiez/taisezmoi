@@ -13,6 +13,7 @@
     "@emailjs/browser": "^3.12.1",
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.1.1",
+    "@vueuse/sound": "^2.0.1",
     "daisyui": "^4.4.24",
     "mongodb": "^6.3.0",
     "quill": "^2.0.2",

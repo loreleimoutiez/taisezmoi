@@ -7,7 +7,7 @@
             <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-6 md:mb-10">Nouvel
               article
             </h1>
-            <form @submit.prevent="handleSubmit" method="POST" class="pt-32">
+            <form @submit.prevent="handleSubmit" method="POST" class="pt-10">
               <div class="mb-4">
                 <label class="md:text-xl text-gray-600">Titre <span class="text-red-500">*</span></label>
                 <input v-model="title" id="title" name="title" autocomplete="title" required="true" type="text"
@@ -18,7 +18,7 @@
                 <label class="md:text-xl text-gray-600">Description <span class="text-red-500">*</span></label>
                 <textarea v-model="description" id="description" name="description" autocomplete="description"
                   required="true" type="text"
-                  class="mt-5 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full h-32 p-2.5">
+                  class="mt-5 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full h-10 p-2.5">
                 </textarea>
               </div>
 

@@ -12,6 +12,7 @@ import WriteArticle from '@/frontend/Views/WriteArticle.vue'
 import ErrorPage from '@/frontend/Views/ErrorPage.vue'
 import TarotReading from '@/frontend/Views/TarotReading.vue'
 import ArticlePage from '@/frontend/Views/ArticlePage.vue'
+import QuackPage from '@/frontend/Views/QuackPage.vue'
 
 const routes = [
   {
@@ -64,6 +65,11 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: '404',
     component: ErrorPage,
+  },
+  {
+    path: '/quack',
+    name: 'Quack',
+    component: QuackPage,
   }
 ]
 

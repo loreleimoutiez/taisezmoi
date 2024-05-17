@@ -85,6 +85,7 @@ const navigation = [
   { name: 'Accueil' },
   { name: 'À propos' },
   { name: 'Projets' },
-  { name: 'Blog' }
+  { name: 'Blog' },
+  { name: 'Quack' }
 ]
 </script>
