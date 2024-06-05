@@ -19,6 +19,15 @@ coverage
 images
 
 .env
+venv/
+
+# fichiers compilés Python
+__pycache__/
+*.pyc
+
+# Ignorer les fichiers temporaires
+*.tmp
+*.swp
 
 # Editor directories and files
 .vscode/*
