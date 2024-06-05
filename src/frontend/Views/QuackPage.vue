@@ -1,5 +1,4 @@
 <template>
-    <NavMenu />
     <div class="md:h-4/5">
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog class="relative z-50 lg:hidden" @close="sidebarOpen = false">
@@ -31,6 +30,14 @@
                                     <img class="h-8 w-auto" src="../../assets/images/quack.webp" alt="Logo canard" />
                                 </div>
                                 <nav class="flex flex-1 flex-col">
+                                    <div class="py-5 flex flex-col gap-4">
+                                        <input class="w-full bg-base-200 py-3 px-4 rounded-xl text-white focus:outline-none focus:ring focus:ring-yellow-200" v-model="urlInput" type="url"
+                                            placeholder="Paste the URL here" />
+                                        <button class="bg-yellow-200 text-black rounded-xl py-3 px-4"
+                                                @click="submitUrlAndPlaySound">
+                                            Load document
+                                        </button>
+                                    </div>
                                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
                                         <li>
                                             <ul role="list" class="-mx-2 space-y-1">
@@ -56,15 +63,47 @@
             </Dialog>
         </TransitionRoot>
 
+        <!-- <TransitionRoot as="template" :show="modalOpen">
+            <Dialog as="div" class="fixed inset-0 z-10 overflow-y-auto" @close="modalOpen = false">
+            <div class="min-h-screen px-4 text-center flex items-center justify-center">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-start="opacity-0" enter-end="opacity-100" leave="ease-in duration-200" leave-start="opacity-100" leave-end="opacity-0">
+                <div class="fixed inset-0 bg-base-200 bg-opacity-75 transition-opacity"></div>
+                </TransitionChild>
+                <TransitionChild as="template" enter="ease-out duration-300" enter-start="opacity-0 scale-95" enter-end="opacity-100 scale-100" leave="ease-in duration-200" leave-start="opacity-100 scale-100" leave-end="opacity-0 scale-95">
+                <DialogPanel class="inline-block w-full max-w-2xl p-6 my-8 lg:ml-60 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                    <Dialog.Title as="h3" class="text-lg font-medium leading-6 text-gray-900">
+                    Source Details
+                    </Dialog.Title>
+                    <div class="mt-2">
+                    <p class="text-sm text-gray-500" v-html="modalContent"></p>
+                    </div>
+                    <div class="mt-4">
+                    <button type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-black bg-orange-400 border border-transparent rounded-md hover:bg-yellow-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500" @click="modalOpen = false">
+                        Close
+                    </button>
+                    </div>
+                </DialogPanel>
+                </TransitionChild>
+            </div>
+            </Dialog>
+        </TransitionRoot> -->
+
         <!-- Static sidebar for desktop -->
         <div class="hidden lg:fixed lg:z-50 lg:flex lg:w-72 lg:flex-col">
-            <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 bg-base-300 px-6 h-screen rounded-tr-3xl">
                 <div class="flex my-10 shrink-0 items-center pt-5 justify-center">
                     <img class="h-20 w-auto" src="../../assets/images/quack.webp" alt="Logo canard" />
                 </div>
                 <nav class="flex flex-1 flex-col">
                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
+                        <div class="py-5 flex flex-col gap-4">
+                            <input class="w-full bg-base-200 py-3 px-4 rounded-xl text-white focus:outline-none focus:ring focus:ring-yellow-200" v-model="urlInput" type="url"
+                                placeholder="Paste the URL here" />
+                            <button class="bg-yellow-200 text-black rounded-xl py-3 px-4"
+                                    @click="submitUrlAndPlaySound">
+                                Load document
+                            </button>
+                        </div>
                         <li>
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li v-for="item in sidebar" :key="item.name">
@@ -91,47 +130,60 @@
             <div class="flex-1 text-base font-semibold leading-6 text-yellow-200">Quack</div>
         </div>
 
-        <main class="lg:pl-72 md:h-screen flex flex-col">
-            <div class="flex flex-col justify-end items-center h-full">
-                <div class="px-4 pt-32 md:py-10 sm:px-6 lg:px-8 lg:mb-10 lg:ml-[20%]">
-                    <div class="md:w-[70%] px-5 flex flex-col justify-between">
+        <main class="lg:pl-72 h-screen flex flex-col relative">
+            <div class="flex flex-col justify-end items-center flex-grow">
+                <div class="px-4 sm:px-6 lg:px-8 md:ml-[10%] absolute bottom-1 mb-14 md:mb-12">
+                    <div class="md:w-[80%] px-5 flex flex-col justify-between">
                         <div class="flex flex-col mt-5">
+                            <!-- Messages fixes -->
                             <div class="flex justify-start mb-4">
                                 <div class="flex h-18 shrink-0 items-center mr-4">
-                                    <img src="../../assets/images/quack.webp" class="object-cover h-8 w-auto"
-                                        alt="logo canard" />
+                                    <img src="../../assets/images/quack.webp" class="object-cover h-8 w-auto scale-x-[-1]" alt="logo canard" />
                                 </div>
-                                <div
-                                    class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-black">
-                                    Bienvenue à toi, étranger·ère ! Je suis Quack. Je vais te permettre de faire quelque chose dont je vais pas parler tout de suite.
+                                <div class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-black">
+                                    Welcome, stranger! I'm Quack.<br>I'm going to let you ask questions about a technical documentation you downloaded beforehand. Not bad, eh?
                                 </div>
                             </div>
                             <div class="flex justify-end mb-4">
                                 <div>
-                                    <div
-                                        class="mr-2 py-3 px-4 bg-white rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-black">
-                                        Salut Quack, y'a un couac ?
+                                    <div class="mr-2 py-3 px-4 bg-white rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-black">
+                                        Ok my turn!
                                     </div>
                                 </div>
                                 <div class="flex h-18 shrink-0 items-center ml-4">
-                                    <img src="../../assets/images/dino.webp" class="object-cover h-8 w-auto"
-                                        alt="logo canard" />
+                                    <img src="../../assets/images/dino.webp" class="object-cover h-8 w-auto" alt="logo canard" />
                                 </div>
                             </div>
-                            <div class="flex justify-start mb-4">
-                                <div class="flex h-18 shrink-0 items-center mr-4">
-                                    <img src="../../assets/images/quack.webp" class="object-cover h-8 w-auto"
-                                        alt="logo canard" />
-                                </div>
-                                <div
-                                    class="ml-2 py-3 px-4 bg-yellow-200 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-black">
-                                    Arrête de faire le clown au lieu de bosser !
+                            <!-- Messages dynamiques -->
+                            <div v-for="(message, index) in messages" :key="index" class="mb-4 flex" :class="message.sender === 'user' ? 'justify-end' : 'justify-start'">
+                                <div :class="message.sender === 'user' ? 'flex justify-end' : 'flex justify-start'">
+                                    <!-- Conditionally render image if sender is not 'user' -->
+                                    <div v-if="message.sender !== 'user'" class="flex h-18 shrink-0 items-center mr-4">
+                                        <img src="../../assets/images/quack.webp" class="object-cover h-8 w-auto scale-x-[-1]" alt="logo" />
+                                    </div>
+                                    <div>
+                                        <div :class="message.sender === 'user' ? 'mr-2 py-3 px-4 bg-white text-black rounded-bl-3xl rounded-tl-3xl rounded-tr-xl' : 'ml-2 py-3 px-4 bg-yellow-200 text-black rounded-br-3xl rounded-tr-3xl rounded-tl-xl'">
+                                            {{ message.text }}
+                                        </div>
+                                        <!-- <button v-if="message.sender === 'bot' && message.chunkId" @click="loadContext(message.chunkId)" class="mt-4 ml-2 py-3 px-4 bg-orange-400 text-black rounded-br-3xl rounded-tr-3xl rounded-bl-xl">
+                                            Source
+                                        </button> -->
+                                    </div>
+                                    <!-- Conditionally render image if sender is 'user' -->
+                                    <div v-if="message.sender === 'user'" class="flex h-18 shrink-0 items-center ml-4">
+                                        <img src="../../assets/images/dino.webp" class="object-cover h-8 w-auto" alt="logo" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="py-5">
-                            <input class="w-full bg-base-200 py-5 px-3 rounded-xl text-slate-200" type="text"
-                                placeholder="Écris ton message ici !" />
+                        <div class="py-5 flex flex-col">
+                            <div class="flex">
+                                <input v-model="userQuestion" class="w-full bg-base-200 py-5 px-3 rounded-l-xl text-slate-200 focus:outline-none focus:ring focus:ring-yellow-200" type="text" placeholder="Message Quack" @keyup.enter="askQuestion" />
+                                <button class="text-slate-200 bg-base-200 rounded-r-xl px-4 justify-center flex items-center" @click="askQuestion">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs md:text-sm mt-4 mx-auto">For now, Quack is more of an entertainment app than anything else.</p>
                         </div>
                     </div>
                     <!-- end message -->
@@ -143,20 +195,95 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useSound } from '@vueuse/sound'
+import buttonSfx from '../../assets/sounds/quack.wav'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import NavMenu from '../Components/NavMenu.vue'
-import {
-    Bars3Icon,
-    XMarkIcon,
-} from '@heroicons/vue/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+
+const urlInput = ref('')
+const sidebarOpen = ref(false)
+const userQuestion = ref('')
+const messages = ref([])
+// const modalOpen = ref(false)
+// const modalContent = ref('')
+
+const { play } = useSound(buttonSfx)
 
 const sidebar = [
-    { name: 'Quack', href: '#/quack', current: true },
-    { name: 'Historique', href: '#/quack', current: false },
-    { name: 'Charger un document', href: '#/quack', current: false },
-    { name: 'Liste des documents disponibles', href: '#/quack', current: false },
-    { name: 'Comment ça marche ?', href: '#/quack', current: false },
+    { name: 'List of available documents', href: '#/quack', current: false },
+    { name: 'How does it work ?', href: '#/quack', current: false },
 ]
 
-const sidebarOpen = ref(false)
+const submitUrlAndPlaySound = async () => {
+    play()
+    if (urlInput.value) {
+        try {
+            const response = await fetch('http://localhost:5001/api/load-url', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: urlInput.value })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok')
+            }
+            urlInput.value = ''
+        } catch (error) {
+            console.error('Erreur lors du chargement du document:', error)
+        }
+    }
+}
+
+const askQuestion = async () => {
+    if (userQuestion.value) {
+        messages.value.push({
+            text: userQuestion.value,
+            sender: 'user'
+        })
+
+        try {
+            const res = await fetch('http://localhost:5001/api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: userQuestion.value })
+            })
+            if (!res.ok) {
+                throw new Error('Network response was not ok')
+            }
+            const data = await res.json();
+            messages.value.push({
+                text: data.answer || 'No response found',
+                sender: 'bot',
+                chunkId: data.chunkId
+            })
+            userQuestion.value = ''
+        } catch (error) {
+            console.error('Erreur lors de la recherche:', error)
+        }
+    }
+}
+
+// const loadContext = async (chunkId) => {
+//     try {
+//         const response = await fetch('http://localhost:5001/api/get-window', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ chunkId })
+//         })
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok')
+//         }
+//         const data = await response.json();
+//         modalContent.value = `Context before: ${data.chunk1}\n\n\nContext after: ${data.chunk3}`;
+//         modalOpen.value = true;
+//     } catch (error) {
+//         console.error('Erreur lors du chargement du contexte:', error)
+//     }
+// }
+
 </script>
