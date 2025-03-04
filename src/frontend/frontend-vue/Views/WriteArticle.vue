@@ -25,23 +25,29 @@
 
               <div class="mb-6">
                 <label class="md:text-xl text-gray-600">Image de l'article <span class="text-red-500">*</span></label>
-                <input @change="handleImageUpload" type="file" accept="image/*" required class="mt-5 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                <input @change="handleImageUpload" type="file" accept="image/*" required
+                  class="mt-5 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
               </div>
 
               <div class="mb-6">
-                <label class="md:text-xl text-gray-600">Description de l'image (alt) <span class="text-red-500">*</span></label>
+                <label class="md:text-xl text-gray-600">Description de l'image (alt) <span
+                    class="text-red-500">*</span></label>
                 <input v-model="imageAlt" type="text" placeholder="Description de l'image pour l'accessibilité" required
                   class="mt-5 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
               </div>
 
               <div class="mb-10">
                 <label class="md:text-xl text-gray-600">Contenu <span class="text-red-500">*</span></label>
-                <div id="editor" class="mt-2 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full h-60 p-2.5"></div>
+                <div id="editor"
+                  class="mt-2 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full h-60 p-2.5">
+                </div>
               </div>
 
               <div class="flex text-gray-600 mb-6">
-                <button role="submit" class="md:w-32 flex w-full justify-center rounded-md bg-success px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-info">Poster</button>
-                <button type="button" @click="resetForm" class="ml-4 md:w-32 flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500">Réinitialiser</button>
+                <button role="submit"
+                  class="md:w-32 flex w-full justify-center rounded-md bg-success px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-info">Poster</button>
+                <button type="button" @click="resetForm"
+                  class="ml-4 md:w-32 flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500">Réinitialiser</button>
               </div>
             </form>
           </div>
@@ -87,12 +93,14 @@ onMounted(async () => {
 })
 
 const defaultCategories = [
-  'Développement',
-  'Data Engineering',
+  'Frontend & UI',
+  'Backend & API',
+  'Architecture logicielle',
   'Communauté',
+  'System Design & Scalabilité',
+  'Data & Stockage',
+  'Devops & Cloud',
   'Hobbies',
-  'Vie Quotidienne',
-  'Cuisine',
   'Divers'
 ]
 
@@ -177,8 +185,8 @@ const handleSubmit = async () => {
 </script>
 
 <style>
-  .ql-toolbar.ql-snow {
-    border-radius: 5px;
-    margin-top: 1rem;
-  }
+.ql-toolbar.ql-snow {
+  border-radius: 5px;
+  margin-top: 1rem;
+}
 </style>
