@@ -4,10 +4,18 @@
     <div class="py-14 md:py-24">
       <div class="mx-auto max-w-7xl md:max-w-full px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center">
-          <h1 class="text-2xl font-semibold leading-7 text-success">Développeuse web</h1>
-          <p class="mt-2 text-xl font-bold tracking-tight">Vue.js || React && TailwindCSS && Node.js(Express) || Python(Flask)</p>
-          <p class="mt-6 text-lg leading-8">Je vous propose de découvrir ce qui m'anime (mis à part le
-            café) et qui me donne envie de me lever le matin (mis à part mon chat qui miaule).</p>
+          <h1 class="text-2xl font-semibold leading-7 text-success">Développeuse</h1>
+          <p class="mt-6 text-xl tracking-tight"><span class="font-bold">Technos</span> : Vue.js • React • TailwindCSS •
+            Node.js (Express) • Python
+            (Flask)</p>
+          <p class="mt-6 text-xl font-bold tracking-tight">Je me lance aussi dans l’exploration de Rust 🦀 et d’autres
+            technologies pour sortir de ma zone de confort, évoluer
+          </p>
+          <p class="text-xl font-bold tracking-tight">et m’ouvrir à de nouveaux horizons.
+          </p>
+          <p class="mt-6 text-lg leading-8">Je vous invite à découvrir ce qui m’anime (au-delà du café) et ce qui me
+            motive
+            à me lever chaque matin (hormis mon chat qui miaule).</p>
         </div>
         <div class="mx-auto mt-10 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-6xl">
           <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-20 lg:gap-x-20">
