@@ -11,6 +11,7 @@ import TarotReading from '@/frontend/frontend-vue/Views/TarotReading.vue'
 import ArticlePage from '@/frontend/frontend-vue/Views/ArticlePage.vue'
 import QuackPage from '@/frontend/frontend-vue/Views/QuackPage.vue'
 import QuackReact from '@/frontend/frontend-vue/Views/QuackReact.vue'
+import TalksPage from '@/frontend/frontend-vue/Views/TalksPage.vue'
 import { checkAuthStatus } from './js/authentication'
 
 const routes = [
@@ -26,7 +27,8 @@ const routes = [
   { path: '/edit/:id', name: 'Modifier un article', component: WriteArticle, props: true },
   { path: '/:pathMatch(.*)*', name: '404', component: ErrorPage },
   { path: '/quack', name: 'Quack', component: QuackPage },
-  { path: '/quack-react', name: 'QuackReact', component: QuackReact }
+  { path: '/quack-react', name: 'QuackReact', component: QuackReact },
+  { path: '/talks', name: 'Talks', component: TalksPage },
 ]
 
 const router = createRouter({
