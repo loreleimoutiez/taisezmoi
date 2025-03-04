@@ -72,7 +72,7 @@ const isAuthenticated = ref(false)
 const checkAuthStatus = async () => {
   try {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/status`, {
-    //const response = await fetch('http://localhost:3000/api/auth/status', {
+      //const response = await fetch('http://localhost:3000/api/auth/status', {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -98,17 +98,17 @@ const checkAuthStatus = async () => {
 }
 
 const logout = async () => {
-    try {
-        await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
-        //await fetch('http://localhost:3000/api/auth/logout', { // Local
-            method: 'POST',
-            credentials: 'include',
-        })
-        isAuthenticated.value = false
-        router.push({ name: 'Accueil' })
-    } catch (error) {
-        console.error("Erreur lors de la déconnexion :", error)
-    }
+  try {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
+      //await fetch('http://localhost:3000/api/auth/logout', { // Local
+      method: 'POST',
+      credentials: 'include',
+    })
+    isAuthenticated.value = false
+    router.push({ name: 'Accueil' })
+  } catch (error) {
+    console.error("Erreur lors de la déconnexion :", error)
+  }
 }
 
 onMounted(checkAuthStatus)
@@ -117,6 +117,7 @@ const navigation = [
   { name: 'Accueil' },
   { name: 'À propos' },
   { name: 'Projets' },
-  { name: 'Blog' }
+  { name: 'Blog' },
+  { name: 'Talks' }
 ]
 </script>
