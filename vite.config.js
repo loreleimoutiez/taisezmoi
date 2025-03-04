@@ -1,22 +1,19 @@
-/* eslint-env node */
-import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 import gzipPlugin from 'rollup-plugin-gzip';
+import react from '@vitejs/plugin-react';
 
-// Vite configuration
 export default defineConfig({
   base: '/',
   server: {
-    historyApiFallback: true
+    historyApiFallback: true,
   },
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue(), react()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
   },
   build: {
     rollupOptions: {
@@ -25,4 +22,8 @@ export default defineConfig({
       ],
     },
   },
-})
+  esbuild: {
+    jsx: 'react',
+    jsxInject: `import React from 'react'`,
+  },
+});
