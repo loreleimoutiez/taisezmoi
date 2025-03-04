@@ -5,7 +5,7 @@ export default {
     './public/**/*.html',
     './src/**/*.{js,jsx,ts,tsx,vue}',
   ],
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -22,6 +22,7 @@ export default {
           accent: "#1e2732",
           neutral: "#15202b",
           "base-100": "#113338",
+          "base-content": "#ffffff",
           info: "#2294ff",
           success: "#009b6f",
           warning: "#ff7700",
