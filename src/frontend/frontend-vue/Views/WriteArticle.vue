@@ -100,6 +100,7 @@ const defaultCategories = [
   'System Design & Scalabilité',
   'Data & Stockage',
   'Devops & Cloud',
+  'Cyber Sécurité',
   'Hobbies',
   'Divers'
 ]

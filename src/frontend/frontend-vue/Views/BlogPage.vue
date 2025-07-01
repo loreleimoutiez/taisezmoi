@@ -14,23 +14,17 @@
           <div class="flex space-x-4 md:space-x-6 overflow-x-auto scrollbar-hide md:overflow-visible w-full 
            flex-nowrap md:flex-wrap md:justify-center gap-x-4 gap-y-2">
 
-            <!-- Catégories principales + Catégories supplémentaires affichées dynamiquement -->
-            <span v-for="cat in (showMore ? [...defaultCategories, ...extraCategories] : defaultCategories)" :key="cat"
-              @click="filterByCategory(cat)" :class="{ 'text-fuchsia': selectedCategory === cat }"
-              class="border cursor-pointer whitespace-nowrap px-3 py-1 rounded-full hover:border-fuchsia">
-              {{ cat }}
-            </span>
-
-            <!-- Bouton Voir plus / Voir moins -->
-            <button @click="showMore = !showMore"
-              class="border px-3 py-1 rounded-full hover:border-fuchsia whitespace-nowrap">
-              {{ showMore ? 'Voir moins' : 'Voir plus' }}
-            </button>
-
             <!-- Bouton "Toutes les catégories" -->
             <span @click="filterByCategory(null)" :class="{ 'text-fuchsia': selectedCategory === null }"
               class="border cursor-pointer whitespace-nowrap px-3 py-1 rounded-full hover:border-fuchsia">
               Toutes les catégories
+            </span>
+
+            <!-- Catégories disponibles (celles qui ont au moins un article) -->
+            <span v-for="cat in availableCategories" :key="cat"
+              @click="filterByCategory(cat)" :class="{ 'text-fuchsia': selectedCategory === cat }"
+              class="border cursor-pointer whitespace-nowrap px-3 py-1 rounded-full hover:border-fuchsia">
+              {{ cat }}
             </span>
           </div>
         </nav>
@@ -95,9 +89,11 @@ import { ref, onMounted, computed } from 'vue'
 const posts = ref([])
 const selectedCategory = ref(null) // La catégorie sélectionnée
 
-const showMore = ref(false)
-const defaultCategories = ref(['Frontend & UI', 'Backend & API', 'Architecture logicielle', 'Communauté'])
-const extraCategories = ref(['System Design & Scalabilité', 'Data & Stockage', 'Devops & Cloud', 'Hobbies', 'Divers'])
+// Obtenir dynamiquement les catégories qui ont au moins un article
+const availableCategories = computed(() => {
+  const categories = [...new Set(posts.value.map(post => post.category))]
+  return categories.sort()
+})
 
 // Fonction pour filtrer les posts en fonction de la catégorie sélectionnée
 const filteredPosts = computed(() => {
