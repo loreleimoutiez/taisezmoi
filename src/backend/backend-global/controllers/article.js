@@ -135,13 +135,21 @@ exports.likeArticle = async (req, res) => {
       return res.status(400).json({ error: 'Article déjà liké par cet utilisateur' });
     }
 
-    // Ajouter le like
-    article.likes += 1;
-    article.likedBy.push(userHash);
-    await article.save();
+    // Ajouter le like sans modifier updatedAt
+    const updatedArticle = await Article.findByIdAndUpdate(
+      articleId,
+      { 
+        $inc: { likes: 1 },
+        $push: { likedBy: userHash }
+      },
+      { 
+        new: true,
+        timestamps: false // Évite la mise à jour automatique d'updatedAt
+      }
+    );
 
     res.status(200).json({ 
-      likes: article.likes,
+      likes: updatedArticle.likes,
       hasLiked: true,
       message: 'Article liké avec succès' 
     });
@@ -174,13 +182,21 @@ exports.unlikeArticle = async (req, res) => {
       return res.status(400).json({ error: 'Article pas encore liké par cet utilisateur' });
     }
 
-    // Retirer le like
-    article.likes -= 1;
-    article.likedBy = article.likedBy.filter(hash => hash !== userHash);
-    await article.save();
+    // Retirer le like sans modifier updatedAt
+    const updatedArticle = await Article.findByIdAndUpdate(
+      articleId,
+      { 
+        $inc: { likes: -1 },
+        $pull: { likedBy: userHash }
+      },
+      { 
+        new: true,
+        timestamps: false // Évite la mise à jour automatique d'updatedAt
+      }
+    );
 
     res.status(200).json({ 
-      likes: article.likes,
+      likes: updatedArticle.likes,
       hasLiked: false,
       message: 'Like retiré avec succès' 
     });
