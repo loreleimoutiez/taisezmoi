@@ -111,3 +111,101 @@ exports.deleteArticle = (req, res) => {
     })
     .catch((error) => res.status(500).json({ error: error.message }));
 };
+
+exports.likeArticle = async (req, res) => {
+  try {
+    const { userHash } = req.body; // Hash unique du client (IP + localStorage)
+    const articleId = req.params.id;
+
+    const article = await Article.findById(articleId);
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    // Initialiser les champs s'ils n'existent pas
+    if (typeof article.likes === 'undefined') {
+      article.likes = 0;
+    }
+    if (!Array.isArray(article.likedBy)) {
+      article.likedBy = [];
+    }
+
+    // Vérifier si l'utilisateur a déjà liké
+    if (article.likedBy.includes(userHash)) {
+      return res.status(400).json({ error: 'Article déjà liké par cet utilisateur' });
+    }
+
+    // Ajouter le like
+    article.likes += 1;
+    article.likedBy.push(userHash);
+    await article.save();
+
+    res.status(200).json({ 
+      likes: article.likes,
+      hasLiked: true,
+      message: 'Article liké avec succès' 
+    });
+  } catch (error) {
+    console.error('Erreur dans likeArticle:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.unlikeArticle = async (req, res) => {
+  try {
+    const { userHash } = req.body;
+    const articleId = req.params.id;
+
+    const article = await Article.findById(articleId);
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    // Initialiser les champs s'ils n'existent pas
+    if (typeof article.likes === 'undefined') {
+      article.likes = 0;
+    }
+    if (!Array.isArray(article.likedBy)) {
+      article.likedBy = [];
+    }
+
+    // Vérifier si l'utilisateur a liké
+    if (!article.likedBy.includes(userHash)) {
+      return res.status(400).json({ error: 'Article pas encore liké par cet utilisateur' });
+    }
+
+    // Retirer le like
+    article.likes -= 1;
+    article.likedBy = article.likedBy.filter(hash => hash !== userHash);
+    await article.save();
+
+    res.status(200).json({ 
+      likes: article.likes,
+      hasLiked: false,
+      message: 'Like retiré avec succès' 
+    });
+  } catch (error) {
+    console.error('Erreur dans unlikeArticle:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.checkUserLike = async (req, res) => {
+  try {
+    const { userHash } = req.query;
+    const articleId = req.params.id;
+
+    const article = await Article.findById(articleId);
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    const hasLiked = article.likedBy.includes(userHash);
+    res.status(200).json({ 
+      likes: article.likes,
+      hasLiked 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

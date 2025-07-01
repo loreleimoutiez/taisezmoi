@@ -11,4 +11,9 @@ router.get('/:id', articleCtrl.getArticleById);
 router.put('/:id', auth, multer, articleCtrl.updateArticle);
 router.delete('/:id', auth, articleCtrl.deleteArticle);
 
+// Routes pour les likes
+router.post('/:id/like', articleCtrl.likeArticle);
+router.post('/:id/unlike', articleCtrl.unlikeArticle);
+router.get('/:id/like-status', articleCtrl.checkUserLike);
+
 module.exports = router;

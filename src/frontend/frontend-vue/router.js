@@ -12,6 +12,7 @@ import ArticlePage from '@/frontend/frontend-vue/Views/ArticlePage.vue'
 import QuackPage from '@/frontend/frontend-vue/Views/QuackPage.vue'
 import QuackReact from '@/frontend/frontend-vue/Views/QuackReact.vue'
 import TalksPage from '@/frontend/frontend-vue/Views/TalksPage.vue'
+import PrivacyPolicy from '@/frontend/frontend-vue/Views/PrivacyPolicy.vue'
 import { checkAuthStatus } from './js/authentication'
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   { path: '/tarot-reading', name: 'Tarot Reading', component: TarotReading },
   { path: '/write', name: 'Écrire un article', component: WriteArticle },
   { path: '/edit/:id', name: 'Modifier un article', component: WriteArticle, props: true },
+  { path: '/privacy-policy', name: 'Politique de Confidentialité', component: PrivacyPolicy },
   { path: '/:pathMatch(.*)*', name: '404', component: ErrorPage },
   { path: '/quack', name: 'Quack', component: QuackPage },
   { path: '/quack-react', name: 'QuackReact', component: QuackReact },

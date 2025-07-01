@@ -2,6 +2,7 @@
   <footer class="footer footer-center p-10 text-base-content rounded shrink-0 bg-gray-900">
     <nav class="grid grid-flow-col gap-4">
       <router-link to="/contact" class="link link-hover">Contact</router-link>
+      <router-link to="/privacy-policy" class="link link-hover">Politique de Confidentialité</router-link>
       <a class="link link-hover animate-pulse" href="https://smartlink.ausha.co/code-nautilus" target="_blank"
         rel="noopener noreferrer">
         Code Nautilus <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>

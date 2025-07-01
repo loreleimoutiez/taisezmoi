@@ -33,6 +33,11 @@
           <p v-if="post.updatedAt && post.updatedAt !== post.createdAt">
             <strong>Modifié le :</strong> {{ new Date(post.updatedAt).toLocaleDateString('fr-FR') }}
           </p>
+          
+          <!-- Composant de likes -->
+          <div class="mt-4">
+            <LikeButton :articleId="post._id" />
+          </div>
         </div>
 
         <!-- Image de l'article -->
@@ -63,6 +68,7 @@
 import LayoutComp from '../Components/LayoutComp.vue'
 import LatestNews from '@/frontend/frontend-vue/Components/LatestNews.vue'
 import Breadcrumb from '../Components/BreadCrumb.vue'
+import LikeButton from '../Components/LikeButton.vue'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { checkAuthStatus } from '@/frontend/frontend-vue/js/authentication.js'
