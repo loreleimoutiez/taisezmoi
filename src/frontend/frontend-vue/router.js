@@ -27,6 +27,14 @@ const routes = [
   { path: '/write', name: 'Écrire un article', component: WriteArticle },
   { path: '/edit/:id', name: 'Modifier un article', component: WriteArticle, props: true },
   { path: '/privacy-policy', name: 'Politique de Confidentialité', component: PrivacyPolicy },
+  { 
+    path: '/preview/:id', 
+    name: 'Preview Redirect', 
+    beforeEnter: (to, from, next) => {
+      // Rediriger vers la route backend (sans #)
+      window.location.href = `/preview/${to.params.id}`;
+    }
+  },
   { path: '/:pathMatch(.*)*', name: '404', component: ErrorPage },
   { path: '/quack', name: 'Quack', component: QuackPage },
   { path: '/quack-react', name: 'QuackReact', component: QuackReact },

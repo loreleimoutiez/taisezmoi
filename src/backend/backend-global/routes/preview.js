@@ -5,7 +5,7 @@ const Article = require('../models/article');
 const router = express.Router();
 
 // Route pour générer un aperçu HTML d'un article (pour les crawlers sociaux)
-router.get('/preview/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const article = await Article.findById(req.params.id);
         
