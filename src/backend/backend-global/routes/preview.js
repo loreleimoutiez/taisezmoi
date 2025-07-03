@@ -48,12 +48,18 @@ router.get('/:id', async (req, res) => {
     
     <!-- Redirection automatique vers l'article -->
     <script>
-        // Rediriger vers l'article après 2 secondes si ce n'est pas un bot
-        setTimeout(function() {
-            if (!navigator.userAgent.match(/bot|crawler|spider/i)) {
-                window.location.href = "${articleUrl}";
+        // Redirection immédiate pour les humains, sauf si c'est un bot
+        if (typeof window !== 'undefined') {
+            // Vérifier si c'est un bot
+            const isBot = /bot|crawler|spider|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram/i.test(navigator.userAgent);
+            
+            if (!isBot) {
+                // Redirection immédiate avec un petit délai pour laisser la page se charger
+                setTimeout(function() {
+                    window.location.href = "${articleUrl}";
+                }, 500);
             }
-        }, 2000);
+        }
     </script>
     
     <style>
@@ -88,7 +94,7 @@ router.get('/:id', async (req, res) => {
 </head>
 <body>
     <div class="preview-banner">
-        <p>Aperçu de l'article - Redirection en cours vers taisezmoi.com...</p>
+        <p>Aperçu de l'article - <a href="${articleUrl}" style="color: white; text-decoration: underline;">Cliquez ici pour lire l'article complet</a></p>
     </div>
     
     <article>
