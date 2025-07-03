@@ -85,6 +85,20 @@
 import LayoutComp from '@/frontend/frontend-vue/Components/LayoutComp.vue'
 import LatestNews from '@/frontend/frontend-vue/Components/LatestNews.vue'
 import { ref, onMounted, computed } from 'vue'
+import { useHead } from '@vueuse/head'
+
+// Configuration des métadonnées pour la page Blog
+useHead({
+  title: 'Blog - taisezmoi',
+  meta: [
+    { name: 'description', content: 'Taiseznews : mon blog de développement web. Articles sur Vue.js, React, Node.js, architecture logicielle et bien plus encore.' },
+    { property: 'og:title', content: 'Blog - taisezmoi' },
+    { property: 'og:description', content: 'Taiseznews : mon blog de développement web. Articles sur Vue.js, React, Node.js, architecture logicielle et bien plus encore.' },
+    { property: 'og:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+    { property: 'og:url', content: 'https://www.taisezmoi.com/#/blog' },
+    { property: 'og:type', content: 'website' },
+  ]
+})
 
 const posts = ref([])
 const selectedCategory = ref(null) // La catégorie sélectionnée

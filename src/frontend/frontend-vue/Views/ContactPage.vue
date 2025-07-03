@@ -60,6 +60,20 @@
 import LayoutComp from '@/frontend/frontend-vue/Components/LayoutComp.vue'
 import { ref } from 'vue'
 import emailjs from '@emailjs/browser'
+import { useHead } from '@vueuse/head'
+
+// Configuration des métadonnées pour la page Contact
+useHead({
+  title: 'Contact - taisezmoi',
+  meta: [
+    { name: 'description', content: 'Contactez-moi pour discuter de projets, collaborations ou opportunités dans le développement web.' },
+    { property: 'og:title', content: 'Contact - taisezmoi' },
+    { property: 'og:description', content: 'Contactez-moi pour discuter de projets, collaborations ou opportunités dans le développement web.' },
+    { property: 'og:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+    { property: 'og:url', content: 'https://www.taisezmoi.com/#/contact' },
+    { property: 'og:type', content: 'website' },
+  ]
+})
 
 const showModal = ref(false);
 

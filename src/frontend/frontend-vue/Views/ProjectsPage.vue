@@ -45,6 +45,20 @@ import LatestNews from '@/frontend/frontend-vue/Components/LatestNews.vue'
 import tarotReadingImage from '@/assets/images/tarotreading.webp'
 import homebirdImage from '@/assets/images/homebird.webp'
 import Quack from '@/assets/images/quack.webp'
+import { useHead } from '@vueuse/head'
+
+// Configuration des métadonnées pour la page Projets
+useHead({
+  title: 'Projets - taisezmoi',
+  meta: [
+    { name: 'description', content: 'Découvrez mes projets de développement web : applications RAG, jeux Phaser.js, sites vitrine et bien plus encore.' },
+    { property: 'og:title', content: 'Projets - taisezmoi' },
+    { property: 'og:description', content: 'Découvrez mes projets de développement web : applications RAG, jeux Phaser.js, sites vitrine et bien plus encore.' },
+    { property: 'og:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+    { property: 'og:url', content: 'https://www.taisezmoi.com/#/projects' },
+    { property: 'og:type', content: 'website' },
+  ]
+})
 
 const posts = [
   {

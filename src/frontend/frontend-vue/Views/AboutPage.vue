@@ -132,6 +132,20 @@
 <script setup>
 import LayoutComp from '@/frontend/frontend-vue/Components/LayoutComp.vue'
 import TweetComp from '@/frontend/frontend-vue/Components/TweetComp.vue'
+import { useHead } from '@vueuse/head'
+
+// Configuration des métadonnées pour la page À propos
+useHead({
+  title: 'À propos - taisezmoi',
+  meta: [
+    { name: 'description', content: 'Apprenez à me connaître : développeuse web reconvertie, passionnée d\'histoire de l\'informatique et de partage de connaissances.' },
+    { property: 'og:title', content: 'À propos - taisezmoi' },
+    { property: 'og:description', content: 'Apprenez à me connaître : développeuse web reconvertie, passionnée d\'histoire de l\'informatique et de partage de connaissances.' },
+    { property: 'og:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+    { property: 'og:url', content: 'https://www.taisezmoi.com/#/about' },
+    { property: 'og:type', content: 'website' },
+  ]
+})
 
 const titles = [
     {

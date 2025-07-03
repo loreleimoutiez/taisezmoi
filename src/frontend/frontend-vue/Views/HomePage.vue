@@ -78,6 +78,24 @@
 import { ShareIcon, CommandLineIcon, ArrowDownOnSquareIcon, SparklesIcon, ChevronDoubleRightIcon } from '@heroicons/vue/24/outline'
 import LayoutComp from '@/frontend/frontend-vue/Components/LayoutComp.vue'
 import LatestNews from '@/frontend/frontend-vue/Components/LatestNews.vue'
+import { useHead } from '@vueuse/head'
+
+// Configuration des métadonnées pour la page d'accueil
+useHead({
+  title: 'taisezmoi - Développeuse web',
+  meta: [
+    { name: 'description', content: 'Développeuse web reconvertie, ce site a pour vocation de documenter mon exploration du métier. Apprenez à me connaître à travers mon portfolio et en parcourant mon blog.' },
+    { property: 'og:title', content: 'taisezmoi - Développeuse web' },
+    { property: 'og:description', content: 'Développeuse web reconvertie, ce site a pour vocation de documenter mon exploration du métier. Apprenez à me connaître à travers mon portfolio et en parcourant mon blog.' },
+    { property: 'og:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+    { property: 'og:url', content: 'https://www.taisezmoi.com/' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'taisezmoi - Développeuse web' },
+    { name: 'twitter:description', content: 'Développeuse web reconvertie, ce site a pour vocation de documenter mon exploration du métier.' },
+    { name: 'twitter:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+  ]
+})
 
 const features = [
   {

@@ -57,6 +57,20 @@
 <script setup>
 import LayoutComp from '@/frontend/frontend-vue/Components/LayoutComp.vue'
 import LatestNews from '@/frontend/frontend-vue/Components/LatestNews.vue'
+import { useHead } from '@vueuse/head'
+
+// Configuration des métadonnées pour la page Talks
+useHead({
+  title: 'Talks - taisezmoi',
+  meta: [
+    { name: 'description', content: 'Mes conférences et talks sur le développement web : Vue.js, React, RAG, Phaser.js et histoire de l\'informatique.' },
+    { property: 'og:title', content: 'Talks - taisezmoi' },
+    { property: 'og:description', content: 'Mes conférences et talks sur le développement web : Vue.js, React, RAG, Phaser.js et histoire de l\'informatique.' },
+    { property: 'og:image', content: 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
+    { property: 'og:url', content: 'https://www.taisezmoi.com/#/talks' },
+    { property: 'og:type', content: 'website' },
+  ]
+})
 
 const talks = [
     {

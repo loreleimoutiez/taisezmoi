@@ -48,7 +48,39 @@ exports.getArticleById = (req, res) => {
       }
       res.status(200).json(article);
     })
-    .catch(error => res.status(500).json({ error: 'Server error' }));
+    .catch(error => {
+      res.status(500).json({ error: error.message });
+    });
+};
+
+// Nouvelle méthode pour générer les métadonnées d'un article pour les crawlers
+exports.getArticleMetadata = (req, res) => {
+  Article.findById(req.params.id)
+    .then(article => {
+      if (!article) {
+        return res.status(404).json({ error: 'Article not found' });
+      }
+      
+      // Nettoyer le contenu HTML pour la description
+      const plainTextContent = article.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+      
+      const metadata = {
+        title: article.title,
+        description: plainTextContent,
+        image: article.image,
+        url: `${process.env.FRONTEND_URL || 'https://www.taisezmoi.com'}/#/article/${article._id}`,
+        publishedTime: article.createdAt,
+        modifiedTime: article.updatedAt,
+        author: 'taisezmoi',
+        category: article.category,
+        alt: article.alt
+      };
+      
+      res.status(200).json(metadata);
+    })
+    .catch(error => {
+      res.status(500).json({ error: error.message });
+    });
 };
 
 exports.updateArticle = async (req, res) => {
@@ -138,20 +170,20 @@ exports.likeArticle = async (req, res) => {
     // Ajouter le like sans modifier updatedAt
     const updatedArticle = await Article.findByIdAndUpdate(
       articleId,
-      { 
+      {
         $inc: { likes: 1 },
         $push: { likedBy: userHash }
       },
-      { 
+      {
         new: true,
         timestamps: false // Évite la mise à jour automatique d'updatedAt
       }
     );
 
-    res.status(200).json({ 
+    res.status(200).json({
       likes: updatedArticle.likes,
       hasLiked: true,
-      message: 'Article liké avec succès' 
+      message: 'Article liké avec succès'
     });
   } catch (error) {
     console.error('Erreur dans likeArticle:', error);
@@ -185,20 +217,20 @@ exports.unlikeArticle = async (req, res) => {
     // Retirer le like sans modifier updatedAt
     const updatedArticle = await Article.findByIdAndUpdate(
       articleId,
-      { 
+      {
         $inc: { likes: -1 },
         $pull: { likedBy: userHash }
       },
-      { 
+      {
         new: true,
         timestamps: false // Évite la mise à jour automatique d'updatedAt
       }
     );
 
-    res.status(200).json({ 
+    res.status(200).json({
       likes: updatedArticle.likes,
       hasLiked: false,
-      message: 'Like retiré avec succès' 
+      message: 'Like retiré avec succès'
     });
   } catch (error) {
     console.error('Erreur dans unlikeArticle:', error);
@@ -217,9 +249,9 @@ exports.checkUserLike = async (req, res) => {
     }
 
     const hasLiked = article.likedBy.includes(userHash);
-    res.status(200).json({ 
+    res.status(200).json({
       likes: article.likes,
-      hasLiked 
+      hasLiked
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

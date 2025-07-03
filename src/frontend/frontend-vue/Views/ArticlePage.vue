@@ -72,7 +72,7 @@ import LikeButton from '../Components/LikeButton.vue'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { checkAuthStatus } from '@/frontend/frontend-vue/js/authentication.js'
-import { useHead } from '@vueuse/head'
+import { useSEO } from '@/frontend/frontend-vue/composables/useSEO.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -93,19 +93,22 @@ const fetchPost = async () => {
     const data = await response.json()
     post.value = data
 
-    useHead({
-      title: post.value.title,
-      meta: [
-        { property: 'og:title', content: post.value.title },
-        { property: 'og:description', content: post.value.excerpt || post.value.content.slice(0, 150) },
-        { property: 'og:image', content: post.value.image || 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
-        { property: 'og:url', content: `${import.meta.env.VITE_FRONTEND_URL}/#/article/${post.value._id}` },
-        { property: 'og:type', content: 'article' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: post.value.title },
-        { name: 'twitter:description', content: post.value.excerpt || post.value.content.slice(0, 150) },
-        { name: 'twitter:image', content: post.value.image || 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp' },
-      ],
+    // Nettoyer le contenu HTML pour la description
+    const plainTextContent = data.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+    const articleUrl = `${import.meta.env.VITE_FRONTEND_URL || 'https://www.taisezmoi.com'}/#/article/${data._id}`;
+
+    // Utiliser le composable SEO pour gérer les métadonnées
+    useSEO({
+      title: `${data.title} - taisezmoi`,
+      description: plainTextContent,
+      image: data.image || 'https://www.taisezmoi.com/assets/dino-XqyuFW9r.webp',
+      url: articleUrl,
+      type: 'article',
+      publishedTime: data.createdAt,
+      modifiedTime: data.updatedAt,
+      author: 'taisezmoi',
+      section: data.category,
+      imageAlt: data.alt || `Image de l'article : ${data.title}`
     })
   } catch (error) {
     console.error('Erreur :', error)
