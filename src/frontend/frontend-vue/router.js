@@ -31,8 +31,8 @@ const routes = [
     path: '/preview/:id', 
     name: 'Preview Redirect', 
     beforeEnter: (to, from, next) => {
-      // Rediriger vers la route backend (sans #)
-      window.location.href = `/preview/${to.params.id}`;
+      // Rediriger vers la route backend Render
+      window.location.href = `https://taisez-back.onrender.com/preview/${to.params.id}`;
     }
   },
   { path: '/:pathMatch(.*)*', name: '404', component: ErrorPage },
